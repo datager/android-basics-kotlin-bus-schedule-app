@@ -26,10 +26,7 @@ import com.example.busschedule.databinding.BusStopItemBinding
 import java.text.SimpleDateFormat
 import java.util.Date
 
-class BusStopAdapter(
-    private val onItemClicked: (Schedule) -> Unit
-) : ListAdapter<Schedule, BusStopAdapter.BusStopViewHolder>(DiffCallback) {
-
+class BusStopAdapter(private val onItemClicked: (Schedule) -> Unit) : ListAdapter<Schedule, BusStopAdapter.BusStopViewHolder>(DiffCallback) {
     companion object {
         private val DiffCallback = object : DiffUtil.ItemCallback<Schedule>() {
             override fun areItemsTheSame(oldItem: Schedule, newItem: Schedule): Boolean {
@@ -44,11 +41,7 @@ class BusStopAdapter(
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BusStopViewHolder {
         val viewHolder = BusStopViewHolder(
-            BusStopItemBinding.inflate(
-                LayoutInflater.from( parent.context),
-                parent,
-                false
-            )
+            BusStopItemBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         )
         viewHolder.itemView.setOnClickListener {
             val position = viewHolder.adapterPosition
@@ -61,15 +54,11 @@ class BusStopAdapter(
         holder.bind(getItem(position))
     }
 
-    class BusStopViewHolder(
-        private var binding: BusStopItemBinding
-    ): RecyclerView.ViewHolder(binding.root) {
+    class BusStopViewHolder(private var binding: BusStopItemBinding) : RecyclerView.ViewHolder(binding.root) {
         @SuppressLint("SimpleDateFormat")
         fun bind(schedule: Schedule) {
             binding.stopNameTextView.text = schedule.stopName
-            binding.arrivalTimeTextView.text = SimpleDateFormat(
-                "h:mm a").format(Date(schedule.arrivalTime.toLong() * 1000)
-            )
+            binding.arrivalTimeTextView.text = SimpleDateFormat("h:mm a").format(Date(schedule.arrivalTime.toLong() * 1000))
         }
     }
 }

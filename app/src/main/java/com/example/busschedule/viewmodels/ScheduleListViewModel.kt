@@ -21,16 +21,12 @@ import com.example.busschedule.database.schedule.Schedule
 import com.example.busschedule.database.schedule.ScheduleDao
 import kotlinx.coroutines.flow.Flow
 
-class BusScheduleViewModel(private val scheduleDao: ScheduleDao): ViewModel() {
-
+class BusScheduleViewModel(private val scheduleDao: ScheduleDao) : ViewModel() {
     fun fullSchedule(): Flow<List<Schedule>> = scheduleDao.getAll()
-
     fun scheduleForStopName(name: String): Flow<List<Schedule>> = scheduleDao.getByStopName(name)
 }
 
-class BusScheduleViewModelFactory(
-    private val scheduleDao: ScheduleDao
-) : ViewModelProvider.Factory {
+class BusScheduleViewModelFactory(private val scheduleDao: ScheduleDao) : ViewModelProvider.Factory {
     override fun <T : ViewModel> create(modelClass: Class<T>): T {
         if (modelClass.isAssignableFrom(BusScheduleViewModel::class.java)) {
             @Suppress("UNCHECKED_CAST")

@@ -31,19 +31,13 @@ import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 
 class StopScheduleFragment: Fragment() {
-
     companion object {
         var STOP_NAME = "stopName"
     }
-
     private var _binding: StopScheduleFragmentBinding? = null
-
     private val binding get() = _binding!!
-
     private lateinit var recyclerView: RecyclerView
-
     private lateinit var stopName: String
-
     private val viewModel: BusScheduleViewModel by activityViewModels {
         BusScheduleViewModelFactory(
             (activity?.application as BusScheduleApplication).database.scheduleDao()
@@ -52,17 +46,12 @@ class StopScheduleFragment: Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
         arguments?.let {
             stopName = it.getString(STOP_NAME).toString()
         }
     }
 
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         _binding = StopScheduleFragmentBinding.inflate(inflater, container, false)
         val view = binding.root
         return view
@@ -72,7 +61,7 @@ class StopScheduleFragment: Fragment() {
         super.onViewCreated(view, savedInstanceState)
         recyclerView = binding.recyclerView
         recyclerView.layoutManager = LinearLayoutManager(requireContext())
-        val busStopAdapter = BusStopAdapter({})
+        val busStopAdapter = BusStopAdapter {}
         // by passing in the stop name, filtered results are returned,
         // and tapping rows won't trigger navigation
         recyclerView.adapter = busStopAdapter
